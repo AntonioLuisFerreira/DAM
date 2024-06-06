@@ -12,7 +12,8 @@ internal class HttpRequestInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
         val request = originalRequest.newBuilder().url(originalRequest.url).build()
-        Log.d("Pokemon-API-Request",request.toString())
+        Log.d("Pokemon-API-Request-2",originalRequest.url.toString())
+
         return chain.proceed(request)
     }
 }

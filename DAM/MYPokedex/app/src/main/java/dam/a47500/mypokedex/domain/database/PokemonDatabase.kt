@@ -12,7 +12,6 @@ import dam.a47500.mypokedex.domain.entities.PokemonRegion
 @Database( entities = [PokemonRegion::class, Pokemon:: class], version = 3, exportSchema = false )
 abstract class PokemonDatabase : RoomDatabase() {
     abstract fun regionDao (): PokemonRegionDao
-
     abstract fun pokemonDao (): PokemonDao
     companion object {
         // For Singleton instantiation

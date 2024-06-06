@@ -13,10 +13,10 @@ import dam.a47500.mypokedex.domain.entities.PokemonRegion
 import dam.a47500.mypokedex.model.PokemonDetails
 import dam.a47500.mypokedex.model.PokemonListViewModel
 import dam.a47500.mypokedex.model.PokemonsAdapter
-class PokemonListActivity : AppCompatActivity() {
+class PokemonListActivity : BottomNavActivity() {
 
     val viewModel: PokemonListViewModel by viewModels()
-    private lateinit var binding: ViewDataBinding
+    override lateinit var binding: ViewDataBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -25,7 +25,7 @@ class PokemonListActivity : AppCompatActivity() {
 
         var listView = pokemonListBinding.pksRecyclerView
 
-        viewModel.initViewMode(DBModule.getInstance(this).pokemonRepository)
+        viewModel.initViewMode(DBModule.getInstance(this).firebasePokemonRepository)
         viewModel.pokemons.observe(this) {
             listView.adapter = it?.let { it1 ->
                 PokemonsAdapter(pokemonList = it1, context = this) { pokemon ->
@@ -37,6 +37,24 @@ class PokemonListActivity : AppCompatActivity() {
         viewModel.fetchPokemons(PokemonRegion(intent.getIntExtra("region_id", 1),
             intent.getStringExtra("region_name").toString()
         ))
+
+        navigationView = findViewById(R.id.navigation)
+        navigationView.itemIconTintList = null
+        navigationView.setOnItemSelectedListener { item ->
+            when(item.itemId) {
+                R.id.navigation_regions -> {
+                    // Navigate to RegionsActivity
+                    startActivity(Intent(this, RegionsActivity::class.java))
+                    true
+                }
+                R.id.navigation_teams -> {
+                    // Navigate to TeamActivity
+                    startActivity(Intent(this, TeamsActivity::class.java))
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     private fun navigateToPokemonDetails(pokemon: dam.a47500.mypokedex.domain.entities.Pokemon) {
@@ -47,5 +65,8 @@ class PokemonListActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-
+    override val contentViewId: Int
+        get() = R.layout.activity_regions
+    override val navigationMenuItemId: Int
+        get() = R.id.navigation_regions
 }

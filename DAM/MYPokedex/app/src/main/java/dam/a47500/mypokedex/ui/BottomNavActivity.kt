@@ -13,7 +13,7 @@ import dam.a47500.mypokedex.R
 
 abstract class BottomNavActivity : AppCompatActivity() {
     lateinit var navigationView: BottomNavigationView
-    lateinit var binding: ViewDataBinding
+    open lateinit var binding: ViewDataBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

@@ -31,6 +31,7 @@ object MockData {
         PokemonRegion(6, "Kalos", R.drawable.bg_kalos, R.drawable.pk_kalos),
         PokemonRegion(7, "Alola", R.drawable.bg_alola, R.drawable.pk_alola),
         PokemonRegion(8, "Galar", R.drawable.bg_galar, R.drawable.pk_galar),
+        PokemonRegion(9, "Paldea", R.drawable.bg_paldea, R.drawable.pk_paldea),
     )
 
     var pokemonTypeMock= listOf<PokemonType>(

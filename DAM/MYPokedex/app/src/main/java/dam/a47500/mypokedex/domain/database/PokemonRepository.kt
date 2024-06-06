@@ -47,4 +47,5 @@ class PokemonRepository(private val pokemonApi: PokemonAPI,
             it.let { it1 -> pokemonDao.insertPokemon(it1) }
         }
     }
+
 }

@@ -13,14 +13,14 @@ import dam.a47500.mypokedex.model.RegionsViewModel
 class RegionsActivity : BottomNavActivity() {
 
     val viewModel: RegionsViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
         val regionBinding = binding as ActivityRegionsBinding
         var listView = regionBinding.regionsRecyclerView
 
-        viewModel.initViewMode(DBModule.getInstance(this).regionRepository)
+        viewModel.initViewMode(DBModule.getInstance(this).firebaseRegionRepository)
 
         viewModel.regions.observe(this) {
             listView.adapter = it?.let { it1 ->
@@ -29,7 +29,6 @@ class RegionsActivity : BottomNavActivity() {
                 }
             }
         }
-
         viewModel.fetchRegions()
     }
 

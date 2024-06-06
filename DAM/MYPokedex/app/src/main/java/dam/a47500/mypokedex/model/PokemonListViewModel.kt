@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dam.a47500.mypokedex.domain.database.FirebasePokemonRepository
 import dam.a47500.mypokedex.domain.database.PokemonRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,8 +16,8 @@ class PokemonListViewModel : ViewModel() {
     val pokemons: LiveData<List<Pokemon>?>
         get() = _pokemons
 
-    private lateinit var _repository: PokemonRepository
-    fun initViewMode(repository: PokemonRepository) {
+    private lateinit var _repository: FirebasePokemonRepository
+    fun initViewMode(repository: FirebasePokemonRepository) {
         _repository = repository
     }
 

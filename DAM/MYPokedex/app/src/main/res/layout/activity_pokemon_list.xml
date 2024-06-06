@@ -20,7 +20,12 @@
             app:layoutManager="LinearLayoutManager"
             tools:listitem="@layout/item_pokemon" />
 
-
+        <include
+            android:id="@+id/navigation"
+            layout="@layout/bottomnavigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" />
     </RelativeLayout>
 </layout>
 
