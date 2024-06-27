@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.PostsActivity"
+    android:background="@color/white"
+    tools:ignore="MissingDefaultResource">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/relativeLayoutBackground"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:clipToPadding="true"
+        android:focusable="true">
+
+        <RelativeLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/image_lupa"
+            android:layout_width="37dp"
+            android:layout_height="37dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            app:srcCompat="@drawable/lupa" />
+
+
+        <EditText
+            android:id="@+id/editTextSearchLocation"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="60dp"
+            android:gravity="center_vertical"
+            android:hint="@string/word_location"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <ImageButton
+            android:id="@+id/image_search_Button"
+            android:layout_width="37dp"
+            android:layout_height="37dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentEnd="true"
+            android:rotation="180"
+            android:scaleType="centerCrop"
+            android:background="?android:attr/selectableItemBackground"
+            app:srcCompat="@drawable/arrow" />
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

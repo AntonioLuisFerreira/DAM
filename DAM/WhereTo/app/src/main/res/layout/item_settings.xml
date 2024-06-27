@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.SettingsActivity"
+
+    android:background="@color/white"
+    tools:ignore="MissingDefaultResource">
+
+
+    <data>
+        <!-- Define your data variable here if needed -->
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/relativeLayoutBackground"
+        android:layout_width="match_parent"
+
+        android:layout_height="120dp"
+        android:clipToPadding="true"
+        android:focusable="true">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="5dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true">
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/postBgImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:foreground="@color/light_blue"
+                android:foregroundTintMode="src_in"
+                android:scaleType="fitXY" />
+                <!--app:isToSetBackground="@{true}" />-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="start|center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:id="@+id/textViewLanguage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/change_language"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- Images Section -->
+
+
+                    <!-- First Image -->
+                    <ImageView
+                        android:id="@+id/imageViewFirst"
+                        android:layout_width="37dp"
+                        android:layout_height="37dp"
+                        android:layout_marginStart="32dp"
+                        android:src="@drawable/portugal"
+                        android:scaleType="centerCrop"
+                        android:layout_marginEnd="16dp"
+                        android:clickable="true"
+                        android:focusable="true" />
+
+                    <!-- Second Image -->
+                    <ImageView
+                        android:id="@+id/imageViewSecond"
+                        android:layout_width="37dp"
+                        android:layout_height="37dp"
+
+                        android:src="@drawable/uk"
+                        android:scaleType="centerCrop"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="16dp"
+                        android:clickable="true"
+                        android:focusable="true" />
+
+                    <!-- Third Image -->
+                    <ImageView
+                        android:id="@+id/imageViewThird"
+                        android:layout_width="37dp"
+                        android:layout_height="37dp"
+
+                        android:src="@drawable/spain"
+                        android:scaleType="centerCrop"
+                        android:layout_marginStart="4dp"
+                        android:clickable="true"
+                        android:focusable="true" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</layout>

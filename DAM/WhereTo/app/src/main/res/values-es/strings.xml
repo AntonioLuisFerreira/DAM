@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">Where To</string>
+    <string name="email">Correo electrónico</string>
+    <string name="password">Contraseña</string>
+    <string name="name">Nombre</string>
+    <string name="Login">Iniciar sesión</string>
+    <string name="registry">Registrarse</string>
+    <string name="registry_frase">Si no está registrado, regístrese aquí</string>
+    <string name="submit">Enviar</string>
+    <string name="insert_image">Insertar imagen</string>
+
+    <string name="data">Datos</string>
+    <string name="entry">Entrada</string>
+    <string name="security">Seguridad</string>
+
+    <string name="description">Descripción</string>
+    <string name="publications">Publicaciones</string>
+    <string name="change_language">Cambiar idioma</string>
+    <string name="profile_picture">Foto de perfil</string>
+    <string name="profile_data">Datos de perfil</string>
+
+    <string name="app_bottomtabbar_posts_title">Publicaciones</string>
+    <string name="app_bottomtabbar_publish_title">Publicar</string>
+    <string name="app_bottomtabbar_profile_title">Perfil</string>
+
+    <string name="user_name">António Ferreira</string>
+    <string name="data_example">21/06/2024</string>
+    <string name="hours_example">21h00</string>
+    <string name="entry_example">20€</string>
+    <string name="email_example">a.m.v.l.ferreira@gmail.com</string>
+    <string name="publications_example">1</string>
+    <string name="security_example">No</string>
+    <string name="description_example">Descripción predeterminada</string>
+
+    <string name="location">Lisboa</string>
+    <string name="word_location">Ubicación</string>
+
+    <string name="about_button">Acerca de</string>
+    <string name="help_button">Ayuda</string>
+
+    <string name="capacity">Máx. 200</string>
+    <string name="logout">Sair</string>
+    <string name="about_title_text">Acerca de</string>
+    <string name="help_title_text">Ayuda</string>
+    <string name="username">Nombre de Usuario</string>
+    <string name="app_developed_by">Aplicación desarrollada por António Luís Ferreira</string>
+    <string name="author_description">
+        Estudiante de tercer año de Ingeniería Informática y Multimedia en el ISEL.
+        Esta aplicación fue desarrollada como proyecto final para la clase de DAM.</string>
+    <string name="prof">Prof. Pedro Fazenda</string>
+    <string name="about_date">Junio de 2024</string>
+
+    <string name="help_question">¿Cuál es el propósito de esta aplicación?</string>
+    <string name="help_answer">Esta aplicación sirve como un centro para descubrir dónde ir en una salida nocturna.</string>
+
+</resources>

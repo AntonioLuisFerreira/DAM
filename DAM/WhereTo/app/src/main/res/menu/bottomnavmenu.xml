@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_posts"
+        android:icon="@drawable/house"
+        android:title="@string/app_bottomtabbar_posts_title" />
+    <item
+        android:id="@+id/navigation_publish"
+        android:icon="@drawable/plus"
+        android:title="@string/app_bottomtabbar_publish_title" />
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/profile"
+        android:title="@string/app_bottomtabbar_profile_title" />
+
+
+</menu>
+
