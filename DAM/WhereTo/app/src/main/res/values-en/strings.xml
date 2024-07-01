@@ -7,13 +7,13 @@
     <string name="registry">Register</string>
     <string name="registry_frase">If not register here</string>
     <string name="submit">Submit</string>
-    <string name="insert_image">Insert Image</string>
+    <string name="insert_image">Image</string>
 
-    <string name="data">Data</string>
-    <string name="entry">Entry</string>
-    <string name="security">Security</string>
+    <string name="data">Data:</string>
+    <string name="entry">Entry:</string>
+    <string name="security">Security:</string>
 
-    <string name="description">Description</string>
+    <string name="description">Description:</string>
     <string name="publications">Publications</string>
     <string name="change_language">Change Language</string>
     <string name="profile_picture">Profile Picture</string>
@@ -23,24 +23,24 @@
     <string name="app_bottomtabbar_publish_title">Publish</string>
     <string name="app_bottomtabbar_profile_title">Profile</string>
 
-    <string name="user_name">António Ferreira</string>
-    <string name="data_example">21/06/2024</string>
-    <string name="hours_example">21h00</string>
-    <string name="entry_example">20€</string>
+    <string name="user_name">António</string>
+    <string name="data_example">DD:MM:YYYY</string>
+    <string name="hours_example">HH:MM</string>
+    <string name="entry_example">value €</string>
     <string name="email_example">a.m.v.l.ferreira@gmail.com</string>
     <string name="publications_example">1</string>
     <string name="security_example">No</string>
     <string name="description_example">Default description</string>
 
-    <string name="location">Lisbon</string>
+    <string name="location">City</string>
     <string name="word_location">Location</string>
 
     <string name="about_button">About</string>
     <string name="help_button">Help</string>
 
-    <string name="capacity">Max. 200</string>
+    <string name="capacity">Max. Capacity</string>
     <string name="username">Username</string>
-
+    <string name="delete">Delete</string>
     <string name="about_title_text">About</string>
     <string name="help_title_text">Help</string>
     <string name="logout">Logout</string>

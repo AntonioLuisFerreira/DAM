@@ -57,16 +57,12 @@ android:orientation="vertical">
 
         <Button
             android:id="@+id/logoutbutton"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/linearLayout"
 
-
-            android:layout_marginStart="150dp"
-            android:layout_marginEnd="150dp"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="70dp"
-
-
             android:text="@string/logout" />
 
         <include
@@ -76,6 +72,15 @@ android:orientation="vertical">
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true" />
 
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="20dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:src="@drawable/arrow" />
 
     </RelativeLayout>
 </layout>

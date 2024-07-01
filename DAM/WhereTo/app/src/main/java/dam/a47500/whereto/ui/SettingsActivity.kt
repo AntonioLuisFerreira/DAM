@@ -21,6 +21,7 @@ import java.util.Locale
 class SettingsActivity: BottomNavActivity() {
 
     private lateinit var logoutbutton: Button
+    private lateinit var backButton: ImageButton
 
     @OptIn(UnstableApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,6 +63,10 @@ class SettingsActivity: BottomNavActivity() {
             signOutUser()
             goToMainActivity()
         }
+        backButton = findViewById(R.id.backButton)
+        backButton.setOnClickListener {
+            goBackActivity()
+        }
     }
 
     private fun signOutUser() {
@@ -69,6 +74,13 @@ class SettingsActivity: BottomNavActivity() {
         auth.signOut()
         Toast.makeText(this, "Signed out successfully.", Toast.LENGTH_SHORT).show()
         // Add code here to navigate to your sign-in or main activity as needed
+    }
+
+    private fun goBackActivity() {
+        val intent = Intent(this, ProfileActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
     }
 
     private fun goToMainActivity() {

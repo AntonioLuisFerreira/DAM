@@ -28,11 +28,21 @@ class PostViewModel : ViewModel() {
     fun initViewModel(repository: FirebasePostsRepository){
         _repository = repository
     }
+    fun writePost(post: Post){
+        viewModelScope.launch(Dispatchers.Default) {
+            _repository.writePost(post)
+        }
+    }
+    fun deletePost(id: String){
+        viewModelScope.launch(Dispatchers.Default) {
+            _repository.deletePost(id)
+        }
+    }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun fetchPosts(){
+    fun fetchPosts(location: String){
         viewModelScope.launch(Dispatchers.Default) {
-            val postsList = _repository.getPosts()
+            val postsList = _repository.getPosts(location)
             _posts.postValue(postsList.value)
         }
     }

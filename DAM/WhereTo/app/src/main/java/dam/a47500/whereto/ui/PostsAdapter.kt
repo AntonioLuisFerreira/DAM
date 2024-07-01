@@ -94,7 +94,7 @@ class PostsAdapter(
             })
             .into(holder.imageView)
         holder.dataView.text = post.date
-
+        holder.hoursView.text = post.hour
         holder.locationView.text = post.location
         holder.capacityView.text = "Max. " + post.capacity.toString()
 

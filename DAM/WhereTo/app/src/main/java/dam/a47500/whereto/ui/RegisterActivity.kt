@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -25,6 +26,7 @@ class RegisterActivity: AppCompatActivity() {
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var buttonRegister: Button
+    private lateinit var backButton: ImageButton
 
     val viewModel: UserViewModel by viewModels()
 
@@ -50,6 +52,16 @@ class RegisterActivity: AppCompatActivity() {
                 Toast.makeText(this, "Please enter both email and password", Toast.LENGTH_SHORT).show()
             }
         }
+        backButton = findViewById(R.id.backButton)
+        backButton.setOnClickListener {
+            goToLoginsActivity()
+        }
+    }
+    private fun goToLoginsActivity() {
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
     }
 
 
@@ -62,6 +74,7 @@ class RegisterActivity: AppCompatActivity() {
                     val user = auth.currentUser
                     if (user != null) {
                         registerUserFirebase(user)
+
                     }
                     signInUser(email, password)
                     Toast.makeText(this, "Registration successful.", Toast.LENGTH_SHORT).show()
@@ -76,7 +89,6 @@ class RegisterActivity: AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(this, "Authentication successful.", Toast.LENGTH_SHORT).show()
                     goToMainActivity()
                 } else {
                     Toast.makeText(this, "Authentication failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
@@ -97,9 +109,24 @@ class RegisterActivity: AppCompatActivity() {
         val uid = user.uid
         val firebaseUser = User(username.toString(), email.toString(),uid.toString())
 
+        var flag = false
 
         viewModel.initViewModel(DBModule.getInstance(this).firebaseAuthRepository)
-        viewModel.setUser(firebaseUser)
+        viewModel.getUserByName(username)
+
+        viewModel.user.observe(this) { myUser ->
+            if (myUser != null) {
+                user.delete()
+                showErrorMessage("Username '$username' is already taken. Please choose a different one.")
+            } else {
+                viewModel.setUser(firebaseUser)
+                Toast.makeText(this, "Authentication successful.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun showErrorMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 
 }

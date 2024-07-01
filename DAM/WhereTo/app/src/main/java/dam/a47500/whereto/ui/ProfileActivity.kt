@@ -88,13 +88,16 @@ class ProfileActivity : BottomNavActivity(){
     private fun navigateToLongPost(post: Post){
         val intent = Intent(this, LongPostActivity::class.java)
         intent.putExtra("username",post.username)
+        intent.putExtra("author_email",post.email)
         intent.putExtra("location",post.location)
         intent.putExtra("capacity",post.capacity.toString())
         intent.putExtra("date",post.date)
+        intent.putExtra("hour",post.hour)
         intent.putExtra("entry",post.entry)
         intent.putExtra("security",post.security.toString())
         intent.putExtra("description",post.description)
         intent.putExtra("number_images",post.imageUrls.size)
+        intent.putExtra("priority",post.priority)
 
         for (i in post.imageUrls.indices) {
             intent.putExtra("image_url_$i", post.imageUrls[i])

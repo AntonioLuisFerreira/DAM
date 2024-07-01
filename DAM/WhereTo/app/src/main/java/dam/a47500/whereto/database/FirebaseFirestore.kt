@@ -11,10 +11,14 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.GenericTypeIndicator
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.type.Date
 import dam.a47500.whereto.data.Post
 import dam.a47500.whereto.data.User
 import kotlinx.coroutines.tasks.await
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import java.util.prefs.Preferences
 
 class FirebaseFirestore {
@@ -27,36 +31,81 @@ class FirebaseFirestore {
 
 
     @RequiresApi(Build.VERSION_CODES.O)
-    suspend fun readPosts(): List<Post> {
+    /*suspend fun readPosts(local: String): List<Post> {
 
         val dataSnapshot = postsReference.get().await()
-
         val postList = mutableListOf<Post>()
 
-        val today = LocalDate.now()
+        // Normalize the input local for comparison
+        val normalizedLocal = local.replace(" ", "").lowercase()
 
         for (snapshot in dataSnapshot.children) {
-            val priority = snapshot.child("priority").getValue(Int::class.java) ?: 0
+            val priority = snapshot.key.toString()
             val username = snapshot.child("username").getValue(String::class.java) ?: ""
+            val email = snapshot.child("email").getValue(String::class.java) ?: ""
             val imageUrls = snapshot.child("imageUrls").getValue(object : GenericTypeIndicator<List<String>>() {}) ?: emptyList()
             val location = snapshot.child("location").getValue(String::class.java) ?: ""
             val capacity = snapshot.child("capacity").getValue(Int::class.java) ?: 0
             val date = snapshot.child("date").getValue(String::class.java) ?: ""
+            val hour = snapshot.child("hour").getValue(String::class.java) ?: ""
             val entry = snapshot.child("entry").getValue(String::class.java) ?: ""
             val security = snapshot.child("security").getValue(Boolean::class.java) ?: false
             val description = snapshot.child("description").getValue(String::class.java) ?: ""
 
-            val post = Post(priority, username, imageUrls, location, capacity, date, entry, security, description)
+            val post = Post(priority, username, email, imageUrls, location, capacity, date, hour, entry, security, description)
 
-            val postDate = LocalDate.parse(date)
-            if (!postDate.isBefore(today)) {
+            // Normalize the location for comparison
+            val normalizedLocation = location.replace(" ", "").lowercase()
+            // Check location filter
+            if (normalizedLocation == normalizedLocal || local.isEmpty()) {
                 postList.add(post)
             }
         }
 
         return postList
+    }*/
+
+    suspend fun readPosts(local: String): List<Post> {
+        val dataSnapshot = postsReference.get().await()
+        val postList = mutableListOf<Post>()
+
+        // Normalize the input local for comparison
+        val normalizedLocal = local.replace(" ", "").lowercase()
+
+        // Get the current date
+        val currentDate = LocalDate.now()
+
+        for (snapshot in dataSnapshot.children) {
+            val priority = snapshot.key.toString()
+            val username = snapshot.child("username").getValue(String::class.java) ?: ""
+            val email = snapshot.child("email").getValue(String::class.java) ?: ""
+            val imageUrls = snapshot.child("imageUrls").getValue(object : GenericTypeIndicator<List<String>>() {}) ?: emptyList()
+            val location = snapshot.child("location").getValue(String::class.java) ?: ""
+            val capacity = snapshot.child("capacity").getValue(Int::class.java) ?: 0
+            val date = snapshot.child("date").getValue(String::class.java) ?: ""
+            val hour = snapshot.child("hour").getValue(String::class.java) ?: ""
+            val entry = snapshot.child("entry").getValue(String::class.java) ?: ""
+            val security = snapshot.child("security").getValue(Boolean::class.java) ?: false
+            val description = snapshot.child("description").getValue(String::class.java) ?: ""
+
+            val post = Post(priority, username, email, imageUrls, location, capacity, date, hour, entry, security, description)
+
+            // Normalize the location for comparison
+            val normalizedLocation = location.replace(" ", "").lowercase()
+
+            // Check location filter and date filter
+            if ((normalizedLocation == normalizedLocal || local.isEmpty()) && date.isNotEmpty()) {
+                val postDate = LocalDate.parse(date)
+                if (!postDate.isBefore(currentDate)) {
+                    postList.add(post)
+                }
+            }
+        }
+
+        return postList.sortedWith(compareBy({ LocalDate.parse(it.date) }, { LocalTime.parse(it.hour) }))
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     suspend fun readMyPosts(): List<Post> {
 
         val dataSnapshot = postsReference.get().await()
@@ -64,17 +113,20 @@ class FirebaseFirestore {
         val postList = mutableListOf<Post>()
 
         for (snapshot in dataSnapshot.children) {
-            val priority = snapshot.child("priority").getValue(Int::class.java) ?: 0
+            val priority = snapshot.key.toString()
+
             val username = snapshot.child("username").getValue(String::class.java) ?: ""
+            val email = snapshot.child("email").getValue(String::class.java) ?: ""
             val imageUrls = snapshot.child("imageUrls").getValue(object : GenericTypeIndicator<List<String>>() {}) ?: emptyList()
             val location = snapshot.child("location").getValue(String::class.java) ?: ""
             val capacity = snapshot.child("capacity").getValue(Int::class.java) ?: 0
             val date = snapshot.child("date").getValue(String::class.java) ?: ""
+            val hour = snapshot.child("hour").getValue(String::class.java) ?: ""
             val entry = snapshot.child("entry").getValue(String::class.java) ?: ""
             val security = snapshot.child("security").getValue(Boolean::class.java) ?: false
             val description = snapshot.child("description").getValue(String::class.java) ?: ""
 
-            val post = Post(priority, username, imageUrls, location, capacity, date, entry, security, description)
+            val post = Post(priority,username,email, imageUrls, location, capacity, date,hour, entry, security, description)
 
             if(getUID(username) == Firebase.auth.uid.toString()){
                 postList.add(post)
@@ -82,9 +134,10 @@ class FirebaseFirestore {
 
         }
 
-        return postList
+        return postList.sortedWith(compareBy({ LocalDate.parse(it.date) }, { LocalTime.parse(it.hour) }))
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     suspend fun readUserPosts(userName: String): List<Post> {
 
         val dataSnapshot = postsReference.get().await()
@@ -92,17 +145,20 @@ class FirebaseFirestore {
         val postList = mutableListOf<Post>()
 
         for (snapshot in dataSnapshot.children) {
-            val priority = snapshot.child("priority").getValue(Int::class.java) ?: 0
+            val priority = snapshot.key.toString()
+
             val username = snapshot.child("username").getValue(String::class.java) ?: ""
+            val email = snapshot.child("email").getValue(String::class.java) ?: ""
             val imageUrls = snapshot.child("imageUrls").getValue(object : GenericTypeIndicator<List<String>>() {}) ?: emptyList()
             val location = snapshot.child("location").getValue(String::class.java) ?: ""
             val capacity = snapshot.child("capacity").getValue(Int::class.java) ?: 0
             val date = snapshot.child("date").getValue(String::class.java) ?: ""
+            val hour = snapshot.child("hour").getValue(String::class.java) ?: ""
             val entry = snapshot.child("entry").getValue(String::class.java) ?: ""
             val security = snapshot.child("security").getValue(Boolean::class.java) ?: false
             val description = snapshot.child("description").getValue(String::class.java) ?: ""
 
-            val post = Post(priority, username, imageUrls, location, capacity, date, entry, security, description)
+            val post = Post(priority,username,email, imageUrls, location, capacity, date,hour, entry, security, description)
 
             if(username == userName){
                 postList.add(post)
@@ -110,7 +166,7 @@ class FirebaseFirestore {
 
         }
 
-        return postList
+        return postList.sortedWith(compareBy({ LocalDate.parse(it.date) }, { LocalTime.parse(it.hour) }))
     }
 
     suspend fun getLastID(): String {
@@ -127,8 +183,12 @@ class FirebaseFirestore {
         }
     }
 
-    suspend fun writePosts(post: Post) {
+    suspend fun writePost(post: Post) {
         postsReference.child(getLastID()).setValue(post).await()
+    }
+
+    fun deletePost(id: String){
+        postsReference.child(id).removeValue()
 
     }
 

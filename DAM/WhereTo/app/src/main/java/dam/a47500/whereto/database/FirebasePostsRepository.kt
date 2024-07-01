@@ -11,7 +11,7 @@ import dam.a47500.whereto.data.User
 class FirebasePostsRepository(private val firebaseFirestore: FirebaseFirestore) {
 
     @RequiresApi(Build.VERSION_CODES.O)
-    suspend fun getPosts(): LiveData<List<Post>> {
+    suspend fun getPosts(location: String): LiveData<List<Post>> {
 
         //teste
         /*val post = Post(
@@ -27,7 +27,7 @@ class FirebasePostsRepository(private val firebaseFirestore: FirebaseFirestore) 
         )*/
         //firebaseFirestore.writePosts(post)
 
-        val postsLiveData = firebaseFirestore.readPosts()
+        val postsLiveData = firebaseFirestore.readPosts(location)
 
         if (postsLiveData.isEmpty()) {
 
@@ -37,6 +37,10 @@ class FirebasePostsRepository(private val firebaseFirestore: FirebaseFirestore) 
             return MutableLiveData(postsLiveData)
         }
         return MutableLiveData()
+    }
+
+    suspend fun writePost(post: Post){
+        firebaseFirestore.writePost(post)
     }
 
     suspend fun getMyPosts(): LiveData<List<Post>> {
@@ -64,10 +68,8 @@ class FirebasePostsRepository(private val firebaseFirestore: FirebaseFirestore) 
         }
         return MutableLiveData()
     }
-
-    suspend fun getUserUid(username: String): String {
-        val userUid = firebaseFirestore.getUID(username)
-
-        return userUid
+    suspend fun deletePost(id: String){
+        firebaseFirestore.deletePost(id)
     }
+
 }
