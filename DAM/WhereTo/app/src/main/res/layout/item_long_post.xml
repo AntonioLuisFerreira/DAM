@@ -227,11 +227,12 @@
                         android:textSize="14sp" />
                 </LinearLayout>
                 <!-- Capacity -->
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="wrap_content"
                     android:gravity="start|center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/textViewDescription"
@@ -243,15 +244,21 @@
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/textViewDescriprionValue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:gravity="center_vertical"
-                        android:text="@string/description_example"
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+
+                            android:id="@+id/textViewDescriprionValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/description_example"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+                    </ScrollView>
                 </LinearLayout>
                 <Button
                     android:id="@+id/btnDeletePost"
